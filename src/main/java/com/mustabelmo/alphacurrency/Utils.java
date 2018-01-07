@@ -33,11 +33,6 @@ public class Utils {
         return PROPERTIES;
     }
 
-    public static void main(String[] args) {
-        AlphaNumber alphaNumber = new AlphaNumber(1201234.1234);
-        System.out.println(alphaNumber.toLetters());
-    }
-
     public static String getAlphaFor(int number) {
         return PROPERTIES.get(String.format(NUM_KEY, number)).toString();
     }
