@@ -35,7 +35,7 @@ public class Utils {
 
     public static void main(String[] args) {
         AlphaNumber alphaNumber = new AlphaNumber(1201234.1234);
-        System.out.println(alphaNumber);
+        System.out.println(alphaNumber.toLetters());
     }
 
     public static String getAlphaFor(int number) {
