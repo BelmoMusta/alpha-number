@@ -1,4 +1,7 @@
 # Write numbers in words
+[![Maven Build](https://github.com/BelmoMusta/alpha-number/actions/workflows/maven.yml/badge.svg)](https://github.com/BelmoMusta/alpha-number/actions/workflows/maven.yml)
+[![Maven Test and Coverage](https://github.com/BelmoMusta/alpha-number/actions/workflows/test.yml/badge.svg)](https://github.com/BelmoMusta/alpha-number/actions/workflows/test.yml)
+
 Convert numbers from digital format to words.
 
 This code provides a tool to convert a number from its digital value to the words format.
