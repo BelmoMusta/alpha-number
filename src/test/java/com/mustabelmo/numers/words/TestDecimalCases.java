@@ -1,10 +1,11 @@
-import com.mustabelmo.alphacurrency.NumberInWords;
+package com.mustabelmo.numers.words;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Locale;
 
-public class DecimalTestCases {
+public class TestDecimalCases {
 	
 	public static final Locale AR = Locale.forLanguageTag("ar");
 	
@@ -43,6 +44,22 @@ public class DecimalTestCases {
 		NumberInWords numberInWords = new NumberInWords(x, AR);
 		String toLetters = numberInWords.toLetters();
 		Assert.assertEquals("ثلاثة عشر فاصل صفر ثلاثة وسبعون", toLetters);
+	}
+	@Test
+	public void testDecimalArabWithFraction() {
+		Number x = 13.073;
+		NumberInWords numberInWords = new NumberInWords(x, AR);
+		numberInWords.setDecimalPartToFraction(true);
+		String toLetters = numberInWords.toLetters();
+		Assert.assertEquals("ثلاثة عشر و 73/1000", toLetters);
+	}
+	@Test
+	public void testDecimalFrenchWithFraction() {
+		Number x = 13.073;
+		NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
+		numberInWords.setDecimalPartToFraction(true);
+		String toLetters = numberInWords.toLetters();
+		Assert.assertEquals("treize et 73/1000", toLetters);
 	}
 	
 	@Test

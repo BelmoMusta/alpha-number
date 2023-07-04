@@ -1,4 +1,4 @@
-package com.mustabelmo.alphacurrency;
+package com.mustabelmo.numers.words;
 
 import java.util.Locale;
 

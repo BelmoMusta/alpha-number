@@ -1,7 +1,9 @@
-import com.mustabelmo.alphacurrency.EnglishRulesImpl;
-import com.mustabelmo.alphacurrency.FrenchRulesImpl;
-import com.mustabelmo.alphacurrency.LocalesRulesRegistry;
-import com.mustabelmo.alphacurrency.Rules;
+package com.mustabelmo.numers.words;
+
+import com.mustabelmo.numers.words.EnglishRulesImpl;
+import com.mustabelmo.numers.words.FrenchRulesImpl;
+import com.mustabelmo.numers.words.LocalesRulesRegistry;
+import com.mustabelmo.numers.words.Rules;
 import org.junit.Assert;
 import org.junit.Test;
 

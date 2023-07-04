@@ -1,11 +1,12 @@
-import com.mustabelmo.alphacurrency.NumberInWords;
+package com.mustabelmo.numers.words;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigInteger;
 import java.util.Locale;
 
-public class LargeNumbersTestCases {
+public class TestLargeNumbers {
 	
 	@Test
 	public void testParts() {

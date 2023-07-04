@@ -1,10 +1,11 @@
-import com.mustabelmo.alphacurrency.NumberInWords;
+package com.mustabelmo.numers.words;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Locale;
 
-public class ArabicTestCases {
+public class TestArabicNumbers {
 	Locale arabic = new Locale("ar");
 	
 	@Test
@@ -74,6 +75,11 @@ public class ArabicTestCases {
 	public void test200() {
 		NumberInWords numberInWords = new NumberInWords(200, arabic);
 		Assert.assertEquals("مائتان", numberInWords.toString());
+	}
+	@Test
+	public void test2000() {
+		NumberInWords numberInWords = new NumberInWords(2000, arabic);
+		Assert.assertEquals("ألفان", numberInWords.toString());
 	}
 	
 	@Test

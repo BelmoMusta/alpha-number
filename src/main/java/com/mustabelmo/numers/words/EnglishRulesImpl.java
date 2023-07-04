@@ -1,4 +1,4 @@
-package com.mustabelmo.alphacurrency;
+package com.mustabelmo.numers.words;
 
 public class EnglishRulesImpl extends Rules {
 	String[] ones = {

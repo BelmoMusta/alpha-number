@@ -1,4 +1,4 @@
-package com.mustabelmo.alphacurrency;
+package com.mustabelmo.numers.words;
 
 public abstract class Rules {
 	
@@ -55,10 +55,6 @@ public abstract class Rules {
 	
 	public String getSpecialCases(int onesDigit, int tensDigit) {
 		return "";
-	}
-	
-	public boolean isTensCombined() {
-		return true;
 	}
 	
 	public abstract String getZero();

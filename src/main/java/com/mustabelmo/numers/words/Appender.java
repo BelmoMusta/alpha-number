@@ -1,4 +1,4 @@
-package com.mustabelmo.alphacurrency;
+package com.mustabelmo.numers.words;
 
 public class Appender {
 	private final StringBuilder stringBuilder = new StringBuilder();

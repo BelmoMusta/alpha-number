@@ -1,6 +1,8 @@
-import com.mustabelmo.alphacurrency.FrenchRulesImpl;
-import com.mustabelmo.alphacurrency.LocalesRulesRegistry;
-import com.mustabelmo.alphacurrency.NumberInWords;
+package com.mustabelmo.numers.words;
+
+import com.mustabelmo.numers.words.FrenchRulesImpl;
+import com.mustabelmo.numers.words.LocalesRulesRegistry;
+import com.mustabelmo.numers.words.NumberInWords;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +11,6 @@ import java.util.Locale;
 public class TestConversion {
 	@Test
 	public void testConversion() {
-		LocalesRulesRegistry.register(Locale.FRANCE, new FrenchRulesImpl());
 		NumberInWords numberInWords = new NumberInWords(169.79);
 		Assert.assertEquals("one hundred sixty nine and seventy nine", numberInWords.toLetters());
 		numberInWords = numberInWords.convertTo(Locale.FRENCH);
@@ -22,10 +23,20 @@ public class TestConversion {
 		NumberInWords numberInWords = new NumberInWords(169.79);
 		numberInWords.setSymbol("$");
 		Assert.assertEquals("one hundred sixty nine and seventy nine $", numberInWords.toLetters());
-		numberInWords.setDecimalPartToFraction(true);
-		Assert.assertEquals("one hundred sixty nine and 79/100 $", numberInWords.toLetters());
-		Assert.assertEquals("cent soixante neuf et 79/100 $", numberInWords.convertTo(Locale.FRENCH).toLetters());
-		Assert.assertEquals("مائة وتسعة وستون و 79/100 $", numberInWords.convertTo(Locale.forLanguageTag("ar")).toLetters());
 		
+	}
+	@Test
+	public void testNumberWithSymbolEmpty() {
+		NumberInWords numberInWords = new NumberInWords(169.79);
+		numberInWords.setSymbol("");
+		Assert.assertEquals("one hundred sixty nine and seventy nine", numberInWords.toLetters());
+		
+	}
+	@Test
+	public void testNumberWithSymbolInArabic() {
+		NumberInWords numberInWords = new NumberInWords(169.79, Locale.forLanguageTag("ar"));
+		numberInWords.setSymbol("$");
+		
+		Assert.assertEquals("مائة وتسعة وستون فاصل تسعة وسبعون $", numberInWords.toLetters());
 	}
 }

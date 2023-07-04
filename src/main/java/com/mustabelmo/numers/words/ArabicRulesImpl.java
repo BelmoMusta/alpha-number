@@ -1,4 +1,4 @@
-package com.mustabelmo.alphacurrency;
+package com.mustabelmo.numers.words;
 
 public class ArabicRulesImpl extends Rules {
 	String[] ones = {
@@ -184,7 +184,8 @@ public class ArabicRulesImpl extends Rules {
 	@Override
 	public boolean shouldUnitBeAccusative(int number) {
 		int modulo = number % 100;
-		return modulo != 0 && (modulo > 10 || modulo <3);
+		
+		return modulo > 10  || modulo == 2;
 	}
 	
 	@Override

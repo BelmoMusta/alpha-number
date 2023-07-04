@@ -1,10 +1,11 @@
-import com.mustabelmo.alphacurrency.NumberInWords;
+package com.mustabelmo.numers.words;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Locale;
 
-public class FrenchTestCases {
+public class TestFrenchCases {
 	
 	@Test
 	public void testParts() {

@@ -1,8 +1,9 @@
-import com.mustabelmo.alphacurrency.NumberInWords;
+package com.mustabelmo.numers.words;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-public class EnglishTestCases {
+public class TestEnglishCases {
 	
 	@Test
 	public void testParts() {
@@ -95,5 +96,15 @@ public class EnglishTestCases {
 		NumberInWords numberInWords = new NumberInWords(value);
 		Assert.assertEquals("seven hundred fifteen", numberInWords.toString());
 	}
-	
+	@Test
+	public void testNumber15() {
+		double value = 5000;
+		NumberInWords numberInWords = new NumberInWords(value);
+		Assert.assertEquals("five thousand", numberInWords.toString());
+	}
+	@Test
+	public void test2000() {
+		NumberInWords numberInWords = new NumberInWords(2000);
+		Assert.assertEquals("two thousand", numberInWords.toString());
+	}
 }

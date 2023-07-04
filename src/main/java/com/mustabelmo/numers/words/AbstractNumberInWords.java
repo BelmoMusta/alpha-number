@@ -1,4 +1,4 @@
-package com.mustabelmo.alphacurrency;
+package com.mustabelmo.numers.words;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -135,15 +135,13 @@ public class AbstractNumberInWords {
 		}
 		
 		private void traitUnits(Appender sb) {
-			if (unit != -1 && (onesDigit > 0 || tensDigit > 0 || hundredsDigit > 0)) {
-				boolean spaceAsSeparator = false;
-				String unitString;
+			if (number > 0) {
+				final String unitString;
 				if (rules.isSpecialCaseFor1() && number % 10 == 1) {
 					unitString = rules.getUnitString(unit);
 				} else if (rules.isSpecialCaseFor2() && number == 2) {
 					unitString = rules.getDoubledUnitString(unit);
 				} else if (rules.isInRangeOfPlurals(number)) {
-					spaceAsSeparator = true;
 					unitString = rules.getPluralUnitString(unit);
 				} else {
 					if (rules.shouldUnitBeAccusative(number)) {
@@ -152,10 +150,7 @@ public class AbstractNumberInWords {
 						unitString = rules.getUnitString(unit);
 					}
 				}
-				if (!rules.isInRangeOfPlurals(number % 100)) {
-					spaceAsSeparator = true;
-				}
-				if (spaceAsSeparator && !unitString.isEmpty() && !sb.isEmpty()) {
+				if (!unitString.isEmpty() && !sb.isEmpty()) {
 					sb.append(" ");
 				}
 				sb.append(unitString);
@@ -164,12 +159,15 @@ public class AbstractNumberInWords {
 		
 		private void traitOnes(Appender sb) {
 			String ones = "";
-			if (number == 1 && unit >= 1 && rules.isSpecialCaseFor1())
-				return;
-			if (number == 2 && unit >= 1 && rules.isSpecialCaseFor2())
-				return;
-			if (onesDigit > 0 && rules.isTensCombined() && tensDigit != 1
-					|| (number < 10 && unit == 0)) {
+			if (unit >= 1) {
+				if (number == 1 && (rules.isSpecialCaseFor1())) {
+						return;
+				}
+				if (number == 2 && (rules.isSpecialCaseFor2())) {
+						return;
+				}
+			}
+			if ((onesDigit > 0 && tensDigit != 1) || number < 10) {
 				ones = rules.getOne(onesDigit);
 			}
 			if (!sb.isEmpty() && !ones.isEmpty()) {
@@ -181,7 +179,7 @@ public class AbstractNumberInWords {
 		private void traitTens(Appender sb) {
 			
 			String tens;
-			if (rules.isTensCombined() && tensDigit == 1) {
+			if (tensDigit == 1) {
 				tens = rules.getTen(onesDigit);
 			} else {
 				tens = rules.getMultipleOfTen(tensDigit);
