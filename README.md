@@ -46,6 +46,9 @@ Some limitations are found, due to the big numbers, if million multiple in a suc
 
 ## References 
 [FR : Noms_des_grands_nombres](https://fr.wikipedia.org/wiki/Noms_des_grands_nombres) 
+
+[EN : Names_of_large_numbers](https://en.wikipedia.org/wiki/Names_of_large_numbers) 
+
 [EN : List_of_Illion_numbers](https://character.fandom.com/wiki/List_of_Illion_numbers) 
 
 
