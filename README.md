@@ -1,39 +1,51 @@
-# alpha-number
-Convert numbers from digital format to letters.
+# Write numbers in words
+Convert numbers from digital format to words.
 
-This code provides a tool to convert a number from its digital value to the letter format.
+This code provides a tool to convert a number from its digital value to the words format.
+This release supports 3 built-in languages : `English`, `French` and `Arabic`.
 
-This release only deals with the french based conversion.
-
-## Example :
+## Basic Example :
 
 ```JAVA
-Number x = 182345009;
-Number numberInWords = new numberInWords(x);
-Number french = new numberInWords(x);
-Number numberInWords = new numberInWords(x);
-System.out.println(numberInWords);
-System.out.println(french);
-System.out.println(numberInWords);
+Number x = 192345009;
+NumberInWords numberInWords = new NumberInWords(x, Locale.ENGLISH);
+System.out.println(numberInWords.toString());
+```
+
+```shell
+one hundred ninety two million, three hundred forty five thousand, nine
+```
+## Decimal Format :
+The decimals are supported too : 
+```java
+double value = 200.0098;
+NumberInWords numberInWords = new NumberInWords(value);
+System.out.println(numberInWords.toString());
 ```
 ```shell
-{
-value : 182345009,
-letters: 'one hundred eighty two million, three hundred forty five thousand, nine'
-}
-{
-value : 182345009,
-letters: 'cent quatre-vingt deux million, trois cent quarante cinq mille, neuf'
-}
-{
-value : 182345009,
-letters: 'مائة واثنان وثمانون مليون وثلاثمائة وخمسة وأربعون ألف وتسعة'
-}
+two hundred and zero zero ninety eight
+```
+## Customization
+If a customization is wanted, it will be by extending the `Rules` class and implement its method, the way the words format of a number is wanted.
+Then, the new `Extended Rules` will be registered for a locale, if it depends on a Region or a Language : 
+```java
+LocalesRulesRegistry.register(Locale.XXXX, new MyNewRules());
 ```
 
-## TODO :white_check_mark:
+Or simply create a number by providing the new Rules : 
+```java
+NumberInWords numberInWords = new NumberInWords(29, new MyNewRules());
+```
+## Testing And Coverage
+Test are written in order to maintain the coverage of all the rules that implemented, but not to cover all the possible cases.
 
-- Integrate the english format conversion. :white_check_mark:
-- Integrate the arabic format conversion. :white_check_mark:
+Coverage is ensured to be `100%` on branches, lines, and methods.
+
+## Limitations
+Some limitations are found, due to the big numbers, if million multiple in a such rank does not exist, it will be replaced by `10^{rank}`.
+
+## References 
+[FR : Noms_des_grands_nombres](https://fr.wikipedia.org/wiki/Noms_des_grands_nombres) 
+[EN : List_of_Illion_numbers](https://character.fandom.com/wiki/List_of_Illion_numbers) 
 
 

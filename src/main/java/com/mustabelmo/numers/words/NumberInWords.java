@@ -5,7 +5,10 @@ import java.util.Locale;
 public class NumberInWords extends AbstractNumberInWords {
 	
 	public NumberInWords(Number value, Locale locale) {
-		super(value, LocalesRulesRegistry.get(locale));
+		this(value, LocalesRulesRegistry.get(locale));
+	}
+	public NumberInWords(Number value, Rules rules) {
+		super(value, rules);
 	}
 	public NumberInWords(Number value) {
 		this(value, Locale.ENGLISH);
