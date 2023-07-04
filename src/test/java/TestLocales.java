@@ -1,7 +1,7 @@
-import com.mustabelmo.alphacurrency.EnglishProviderImpl;
-import com.mustabelmo.alphacurrency.FrenchProviderImpl;
-import com.mustabelmo.alphacurrency.LocalesRegistry;
-import com.mustabelmo.alphacurrency.Provider;
+import com.mustabelmo.alphacurrency.EnglishRulesImpl;
+import com.mustabelmo.alphacurrency.FrenchRulesImpl;
+import com.mustabelmo.alphacurrency.LocalesRulesRegistry;
+import com.mustabelmo.alphacurrency.Rules;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,17 +10,17 @@ import java.util.Locale;
 public class TestLocales {
 	@Test
 	public void testLocal() {
-		LocalesRegistry.register(Locale.FRANCE, new FrenchProviderImpl());
-		Provider def = LocalesRegistry.get(null);
-		Assert.assertTrue(def instanceof EnglishProviderImpl);
-		Provider provider = LocalesRegistry.get(Locale.CANADA_FRENCH);
-		Assert.assertTrue(provider instanceof FrenchProviderImpl);
-		Assert.assertEquals("", provider.getDoubledUnitString(0));
-		Assert.assertEquals("", provider.getPluralUnitString(0));
+		LocalesRulesRegistry.register(Locale.FRANCE, new FrenchRulesImpl());
+		Rules def = LocalesRulesRegistry.get(null);
+		Assert.assertTrue(def instanceof EnglishRulesImpl);
+		Rules rules = LocalesRulesRegistry.get(Locale.CANADA_FRENCH);
+		Assert.assertTrue(rules instanceof FrenchRulesImpl);
+		Assert.assertEquals("", rules.getDoubledUnitString(0));
+		Assert.assertEquals("", rules.getPluralUnitString(0));
 		Assert.assertEquals("", def.getSpecialCases(0,0));
 		Assert.assertEquals("", def.getAccusativeUnitString(0));
 		Assert.assertEquals("10^303", def.getUnitString(101));
-		Provider arabic = LocalesRegistry.get(Locale.forLanguageTag("ar"));
+		Rules arabic = LocalesRulesRegistry.get(Locale.forLanguageTag("ar"));
 		String pluralUnitString = arabic.getPluralUnitString(100);
 		Assert.assertEquals("10^300", pluralUnitString);
 		String plurals = arabic.getPluralUnitString(4);

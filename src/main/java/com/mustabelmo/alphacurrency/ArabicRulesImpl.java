@@ -1,6 +1,6 @@
 package com.mustabelmo.alphacurrency;
 
-public class ArabicProviderImpl extends Provider {
+public class ArabicRulesImpl extends Rules {
 	String[] ones = {
 			"صفر",
 			"واحد",
@@ -194,5 +194,10 @@ public class ArabicProviderImpl extends Provider {
 			return singularUnit + "ا";
 		}
 		return singularUnit;
+	}
+	
+	@Override
+	public String getJunction() {
+		return " و ";
 	}
 }

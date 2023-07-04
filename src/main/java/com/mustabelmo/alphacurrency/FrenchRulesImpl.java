@@ -1,6 +1,6 @@
 package com.mustabelmo.alphacurrency;
 
-public class FrenchProviderImpl extends Provider {
+public class FrenchRulesImpl extends Rules {
 	private String[] ones = {
 			"zéro",
 			"un",
@@ -137,5 +137,10 @@ public class FrenchProviderImpl extends Provider {
 	@Override
 	public String getZero() {
 		return ones[0];
+	}
+	
+	@Override
+	public String getJunction() {
+		return " et ";
 	}
 }

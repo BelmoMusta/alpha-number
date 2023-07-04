@@ -9,12 +9,12 @@ This release only deals with the french based conversion.
 
 ```JAVA
 Number x = 182345009;
-Number letteredNumber = new LetteredNumber(x);
-Number french = new LetteredNumber(x);
-Number letteredNumber = new LetteredNumber(x);
-System.out.println(letteredNumber);
+Number numberInWords = new numberInWords(x);
+Number french = new numberInWords(x);
+Number numberInWords = new numberInWords(x);
+System.out.println(numberInWords);
 System.out.println(french);
-System.out.println(letteredNumber);
+System.out.println(numberInWords);
 ```
 ```shell
 {

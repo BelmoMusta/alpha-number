@@ -1,6 +1,6 @@
 package com.mustabelmo.alphacurrency;
 
-public class EnglishProviderImpl extends Provider {
+public class EnglishRulesImpl extends Rules {
 	String[] ones = {
 			"zero",
 			"one",
@@ -188,5 +188,10 @@ public class EnglishProviderImpl extends Provider {
 	@Override
 	public String getZero() {
 		return ones[0];
+	}
+	
+	@Override
+	public String getJunction() {
+		return getDecimalConnector();
 	}
 }

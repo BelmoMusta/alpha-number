@@ -7,18 +7,21 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-public class AbstractLetteredNumber {
+public class AbstractNumberInWords {
 	public static final BigDecimal TEN = BigDecimal.valueOf(10);
-	protected final Provider provider;
+	protected final Rules rules;
 	private final BigDecimal value;
+	protected String symbol;
 	
-	public AbstractLetteredNumber(String value, Provider provider) {
+	protected boolean decimalPartToFraction;
+	
+	public AbstractNumberInWords(String value, Rules rules) {
 		this.value = new BigDecimal(value);
-		this.provider = provider;
+		this.rules = rules;
 	}
 	
-	public AbstractLetteredNumber(Number value, Provider provider) {
-		this(value.toString(), provider);
+	public AbstractNumberInWords(Number value, Rules rules) {
+		this(value.toString(), rules);
 	}
 	
 	public String toLetters() {
@@ -26,27 +29,39 @@ public class AbstractLetteredNumber {
 		Appender sb = new Appender();
 		String collect = numberParts.stream()
 				.map(Object::toString)
-				.collect(Collectors.joining(provider.getUnitsSeparator()));
+				.collect(Collectors.joining(rules.getUnitsSeparator()));
 		sb.append(collect);
 		BigDecimal fractionalPart = value.remainder(BigDecimal.ONE);
 		if (fractionalPart.compareTo(BigDecimal.ZERO) > 0) {
-			sb.append(provider.getDecimalConnector());
+			
 			int numberOfDecimalPlaces = getNumberOfDecimalPlaces(value);
 			BigDecimal pow = TEN.pow(numberOfDecimalPlaces);
 			BigDecimal decimalPart = fractionalPart.multiply(pow);
 			LinkedList<NumberPart> decimalParts = getIntegerNumberParts(decimalPart);
-			String decimalPartAsLetters = decimalParts.stream()
-					.map(Object::toString)
-					.collect(Collectors.joining(provider.getUnitsSeparator()));
-			int numberOfZerosAfterDecimalSymbol = getNumberOfZerosAfterDecimalSymbol(fractionalPart);
-			String zeros = IntStream.range(0, numberOfZerosAfterDecimalSymbol)
-					.mapToObj(i -> provider.getZero())
-					.collect(Collectors.joining(" "));
-			if (!zeros.isEmpty()) {
-				sb.append(zeros);
-				sb.append(' ');
+			if (decimalPartToFraction) {
+				sb.append(rules.getJunction());
+				sb.append(decimalPart.toBigInteger())
+						.append("/")
+						.append(pow);
+			} else {
+				sb.append(rules.getDecimalConnector());
+				String decimalPartAsLetters = decimalParts.stream()
+						.map(Object::toString)
+						.collect(Collectors.joining(rules.getUnitsSeparator()));
+				int numberOfZerosAfterDecimalSymbol = getNumberOfZerosAfterDecimalSymbol(fractionalPart);
+				String zeros = IntStream.range(0, numberOfZerosAfterDecimalSymbol)
+						.mapToObj(i -> rules.getZero())
+						.collect(Collectors.joining(" "));
+				if (!zeros.isEmpty()) {
+					sb.append(zeros);
+					sb.append(' ');
+				}
+				sb.append(decimalPartAsLetters);
 			}
-			sb.append(decimalPartAsLetters);
+		}
+		if (symbol != null && !symbol.isEmpty()) {
+			sb.append(' ')
+					.append(symbol);
 		}
 		return sb.toString();
 	}
@@ -101,13 +116,13 @@ public class AbstractLetteredNumber {
 		public String toString() {
 			Appender sb = new Appender();
 			traitHundreds(sb);
-			if (provider.isInRangeOfSpecialCases(onesDigit, tensDigit)) {
+			if (rules.isInRangeOfSpecialCases(onesDigit, tensDigit)) {
 				if (!sb.isEmpty()) {
-					sb.append(provider.getSeparator());
+					sb.append(rules.getSeparator());
 				}
-				sb.append(provider.getSpecialCases(onesDigit, tensDigit));
+				sb.append(rules.getSpecialCases(onesDigit, tensDigit));
 			} else {
-				if (provider.onesComeAfterTens()) {
+				if (rules.onesComeAfterTens()) {
 					traitTens(sb);
 					traitOnes(sb);
 				} else {
@@ -123,21 +138,21 @@ public class AbstractLetteredNumber {
 			if (unit != -1 && (onesDigit > 0 || tensDigit > 0 || hundredsDigit > 0)) {
 				boolean spaceAsSeparator = false;
 				String unitString;
-				if (provider.isSpecialCaseFor1() && number % 10 == 1) {
-					unitString = provider.getUnitString(unit);
-				} else if (provider.isSpecialCaseFor2() && number == 2) {
-					unitString = provider.getDoubledUnitString(unit);
-				} else if (provider.isInRangeOfPlurals(number)) {
+				if (rules.isSpecialCaseFor1() && number % 10 == 1) {
+					unitString = rules.getUnitString(unit);
+				} else if (rules.isSpecialCaseFor2() && number == 2) {
+					unitString = rules.getDoubledUnitString(unit);
+				} else if (rules.isInRangeOfPlurals(number)) {
 					spaceAsSeparator = true;
-					unitString = provider.getPluralUnitString(unit);
+					unitString = rules.getPluralUnitString(unit);
 				} else {
-					if (provider.shouldUnitBeAccusative(number)) {
-						unitString = provider.getAccusativeUnitString(unit);
+					if (rules.shouldUnitBeAccusative(number)) {
+						unitString = rules.getAccusativeUnitString(unit);
 					} else {
-						unitString = provider.getUnitString(unit);
+						unitString = rules.getUnitString(unit);
 					}
 				}
-				if (!provider.isInRangeOfPlurals(number % 100)) {
+				if (!rules.isInRangeOfPlurals(number % 100)) {
 					spaceAsSeparator = true;
 				}
 				if (spaceAsSeparator && !unitString.isEmpty() && !sb.isEmpty()) {
@@ -149,16 +164,16 @@ public class AbstractLetteredNumber {
 		
 		private void traitOnes(Appender sb) {
 			String ones = "";
-			if (number == 1 && unit >= 1 && provider.isSpecialCaseFor1())
+			if (number == 1 && unit >= 1 && rules.isSpecialCaseFor1())
 				return;
-			if (number == 2 && unit >= 1 && provider.isSpecialCaseFor2())
+			if (number == 2 && unit >= 1 && rules.isSpecialCaseFor2())
 				return;
-			if ((onesDigit > 0 && (provider.isTensCombined() && tensDigit != 1))
-					|| (hundredsDigit == 0 && tensDigit == 0 && unit == 0)) {
-				ones = provider.getOne(onesDigit);
+			if (onesDigit > 0 && rules.isTensCombined() && tensDigit != 1
+					|| (number < 10 && unit == 0)) {
+				ones = rules.getOne(onesDigit);
 			}
 			if (!sb.isEmpty() && !ones.isEmpty()) {
-				sb.append(provider.getSeparator());
+				sb.append(rules.getSeparator());
 			}
 			sb.append(ones);
 		}
@@ -166,24 +181,24 @@ public class AbstractLetteredNumber {
 		private void traitTens(Appender sb) {
 			
 			String tens;
-			if (provider.isTensCombined() && tensDigit == 1) {
-				tens = provider.getTen(onesDigit);
+			if (rules.isTensCombined() && tensDigit == 1) {
+				tens = rules.getTen(onesDigit);
 			} else {
-				tens = provider.getMultipleOfTen(tensDigit);
+				tens = rules.getMultipleOfTen(tensDigit);
 			}
 			if (!sb.isEmpty() && !tens.isEmpty()) {
-				sb.append(provider.getSeparator());
+				sb.append(rules.getSeparator());
 			}
 			sb.append(tens);
 		}
 		
 		private void traitHundreds(Appender sb) {
 			if (hundredsDigit > 0) {
-				sb.append(provider.getHundreds(hundredsDigit));
-				if ((hundredsDigit != 1 || !provider.isSpecialCaseFor1())
-						&& (hundredsDigit != 2 || !provider.isSpecialCaseFor2())) {
-					sb.append(provider.getHundredSeparator())
-							.append(provider.getHundredName());
+				sb.append(rules.getHundreds(hundredsDigit));
+				if ((hundredsDigit != 1 || !rules.isSpecialCaseFor1())
+						&& (hundredsDigit != 2 || !rules.isSpecialCaseFor2())) {
+					sb.append(rules.getHundredSeparator())
+							.append(rules.getHundredName());
 				}
 			}
 		}
@@ -197,4 +212,15 @@ public class AbstractLetteredNumber {
 		}
 	}
 	
+	public Number getValue() {
+		return value;
+	}
+	
+	public void setDecimalPartToFraction(boolean decimalPartToFraction) {
+		this.decimalPartToFraction = decimalPartToFraction;
+	}
+	
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
 }

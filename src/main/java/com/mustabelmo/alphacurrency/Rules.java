@@ -1,6 +1,6 @@
 package com.mustabelmo.alphacurrency;
 
-public abstract class Provider {
+public abstract class Rules {
 	
 	public abstract String getHundreds(int hundredsDigit);
 	
@@ -69,4 +69,5 @@ public abstract class Provider {
 	public String getAccusativeUnitString(int unit) {
 		return "";
 	}
+	public abstract String getJunction();
 }
