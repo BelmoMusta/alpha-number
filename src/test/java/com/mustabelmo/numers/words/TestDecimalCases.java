@@ -70,5 +70,33 @@ public class TestDecimalCases {
 		String toLetters = numberInWords.toLetters();
 		Assert.assertEquals("one hundred thirty four and 232/1000", toLetters);
 	}
+	@Test
+	public void testZeroWithDecimalPart() {
+		Number x = 0.01;
+		NumberInWords numberInWords = new NumberInWords(x,Locale.ENGLISH);
+		String toLetters = numberInWords.toLetters();
+		Assert.assertEquals("zero and zero one", toLetters);
+	}
+	@Test
+	public void testZeroWithDecimalPart2() {
+		Number x = 0.00123;
+		NumberInWords numberInWords = new NumberInWords(x,Locale.ENGLISH);
+		String toLetters = numberInWords.toLetters();
+		Assert.assertEquals("zero and zero zero one hundred twenty three", toLetters);
+	}
+	@Test
+	public void testZeroWithDecimalPartFR() {
+		Number x = 0.01;
+		NumberInWords numberInWords = new NumberInWords(x,Locale.FRENCH);
+		String toLetters = numberInWords.toLetters();
+		Assert.assertEquals("zéro virgule zéro un", toLetters);
+	}
+	@Test
+	public void testZeroWithDecimalPartAR() {
+		Number x = 0.01;
+		NumberInWords numberInWords = new NumberInWords(x, AR);
+		String toLetters = numberInWords.toLetters();
+		Assert.assertEquals("صفر فاصل صفر واحد", toLetters);
+	}
 	
 }

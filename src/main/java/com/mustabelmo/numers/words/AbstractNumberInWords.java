@@ -85,13 +85,21 @@ public class AbstractNumberInWords {
 		do {
 			int modulo = bigIntegerValue.mod(oneThousand).intValue();
 			NumberPart numberPart = new NumberPart(modulo);
-			numberPart.setUnit(unit++);
-			if (value.compareTo(BigDecimal.ZERO) == 0 || !numberPart.isEmpty()) {
+			if (value.compareTo(BigDecimal.ZERO) == 0
+					|| !numberPart.isEmpty()
+					|| isZeroWithDecimalPart(value, unit)) {
 				numberParts.addFirst(numberPart);
 			}
+			numberPart.setUnit(unit++);
+			
 			bigIntegerValue = bigIntegerValue.divide(oneThousand);
 		} while (bigIntegerValue.compareTo(BigInteger.ZERO) != 0);
 		return numberParts;
+	}
+	
+	private boolean isZeroWithDecimalPart(BigDecimal value, int unit) {
+		BigDecimal remainder = value.remainder(BigDecimal.ONE);
+		return unit == 0 && remainder.compareTo(BigDecimal.ZERO) > 0;
 	}
 	
 	int getNumberOfDecimalPlaces(BigDecimal bigDecimal) {
@@ -161,10 +169,10 @@ public class AbstractNumberInWords {
 			String ones = "";
 			if (unit >= 1) {
 				if (number == 1 && (rules.isSpecialCaseFor1())) {
-						return;
+					return;
 				}
 				if (number == 2 && (rules.isSpecialCaseFor2())) {
-						return;
+					return;
 				}
 			}
 			if ((onesDigit > 0 && tensDigit != 1) || number < 10) {
