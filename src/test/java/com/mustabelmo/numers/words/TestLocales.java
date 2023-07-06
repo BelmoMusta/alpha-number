@@ -25,5 +25,10 @@ public class TestLocales {
         Assert.assertEquals("بليونات", plurals);
         String doubledUnitString = arabic.getDoubledUnitString(2);
         Assert.assertEquals("مليونان", doubledUnitString);
+        String defPluralUnitString = def.getPluralUnitString(4);
+        String unitString = def.getUnitString(4);
+        Assert.assertEquals(defPluralUnitString, unitString);
+        Assert.assertFalse(rules.isInRangeOfPlurals(0));
+        
     }
 }

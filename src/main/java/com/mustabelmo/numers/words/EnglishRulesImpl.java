@@ -156,6 +156,11 @@ public class EnglishRulesImpl extends Rules {
     }
     
     @Override
+    public String getPluralUnitString(int unit) {
+        return getUnitString(unit);
+    }
+    
+    @Override
     public String getOne(int unitsDigit) {
         return ones[unitsDigit];
     }
@@ -176,7 +181,7 @@ public class EnglishRulesImpl extends Rules {
     }
     
     @Override
-    public String getHundredName() {
+    public String getHundredName(int number) {
         return "hundred";
     }
     

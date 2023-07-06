@@ -137,7 +137,7 @@ public class ArabicRulesImpl extends Rules {
     }
     
     @Override
-    public String getHundredName() {
+    public String getHundredName(int number) {
         return "مائة";
     }
     
@@ -149,6 +149,11 @@ public class ArabicRulesImpl extends Rules {
     @Override
     public String getHundredSeparator() {
         return "";
+    }
+    
+    @Override
+    public String getTensSeparator() {
+        return " و";
     }
     
     @Override

@@ -10,35 +10,39 @@ public class TestLargeNumbers {
     
     @Test
     public void testParts() {
-        Number x = new BigInteger("93539573680439696830496390192345009");
+        Number        x             = new BigInteger("93539573680439696830496390192345009");
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
-        Assert.assertEquals("quatre-vingt treize quintilliard, cinq cent trente neuf quintillion, cinq cent soixante " +
-                        "treize quadrilliard, six cent quatre-vingt quadrillion, quatre cent trente neuf trilliard, " +
-                        "six cent quatre-vingt seize trillion, huit cent trente billiard, quatre cent quatre-vingt " +
-                        "seize billion, trois cent quatre-vingt-dix milliard, cent quatre-vingt douze million, trois " +
-                        "cent quarante cinq mille, neuf",
+        Assert.assertEquals("quatre-vingt-treize quintilliards cinq cent trente-neuf " +
+                        "quintillions cinq cent soixante-treize quadrilliards six cent " +
+                        "quatre-vingt quadrillions quatre cent trente-neuf trilliards " +
+                        "six cent quatre-vingt-seize trillions huit cent trente billiards " +
+                        "quatre cent quatre-vingt-seize billions trois cent " +
+                        "quatre-vingt-dix milliards cent quatre-vingt-douze millions trois cent " +
+                        "quarante-cinq mille neuf",
                 numberInWords.toString());
     }
     
     @Test
     public void testParts2() {
-        Number x = new BigInteger("12345678900987654321012345678900987654321012345678900987654321012345");
+        Number        x             = new BigInteger(
+                "12345678900987654321012345678900987654321012345678900987654321012345");
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
-        Assert.assertEquals("douze 10^66, trois cent quarante cinq décilliard, six cent soixante dix-huit décillion, " +
-                        "neuf cent nonilliard, neuf cent quatre-vingt sept nonillion, six cent cinquante quatre " +
-                        "octilliard, trois cent vingt et un octillion, douze septilliard, trois cent quarante cinq " +
-                        "septillion, six cent soixante dix-huit sextilliard, neuf cent sextillion, neuf cent " +
-                        "quatre-vingt sept quintilliard, six cent cinquante quatre quintillion, trois cent vingt et " +
-                        "un quadrilliard, douze quadrillion, trois cent quarante cinq trilliard, six cent soixante " +
-                        "dix-huit trillion, neuf cent billiard, neuf cent quatre-vingt sept billion, six cent " +
-                        "cinquante quatre milliard, trois cent vingt et un million, douze mille, trois cent quarante " +
-                        "cinq",
+        Assert.assertEquals("douze 10^66 trois cent quarante-cinq décilliards six cent soixante-dix-huit décillions " +
+                        "neuf cents nonilliards neuf cent quatre-vingt-sept nonillions six cent cinquante-quatre " +
+                        "octilliards trois cent vingt et un octillion douze septilliards trois cent quarante-cinq " +
+                        "septillions six cent soixante-dix-huit sextilliards neuf cents sextillions neuf cent " +
+                        "quatre-vingt-sept quintilliards six cent cinquante-quatre quintillions trois cent vingt et " +
+                        "un quadrilliard douze quadrillions trois cent quarante-cinq trilliards six cent " +
+                        "soixante-dix-huit trillions neuf cents billiards neuf cent quatre-vingt-sept billions six " +
+                        "cent cinquante-quatre milliards trois cent vingt et un million douze mille trois cent " +
+                        "quarante-cinq",
                 numberInWords.toString());
     }
     
     @Test
     public void testParts2Eng() {
-        Number x = new BigInteger("12345678900987654321012345678900987654321012345678900987654321012345");
+        Number        x             = new BigInteger(
+                "12345678900987654321012345678900987654321012345678900987654321012345");
         NumberInWords numberInWords = new NumberInWords(x, Locale.ENGLISH);
         Assert.assertEquals("twelve unvigintillion, three hundred forty five vigintillion, six hundred seventy eight " +
                         "novemdecillion, nine hundred octodecillion, nine hundred eighty seven septendecillion, six " +
@@ -54,7 +58,7 @@ public class TestLargeNumbers {
     
     @Test
     public void testParts3Eng() {
-        Number x = new BigInteger("10").pow(128);
+        Number        x             = new BigInteger("10").pow(128);
         NumberInWords numberInWords = new NumberInWords(x, Locale.ENGLISH);
         Assert.assertEquals("one hundred unquadragintillion",
                 numberInWords.toString());
@@ -62,7 +66,8 @@ public class TestLargeNumbers {
     
     @Test
     public void testPartsArabic() {
-        Number x = new BigInteger("12345678900987654321012345678900987654321012345678900987654321012345");
+        Number        x             = new BigInteger(
+                "12345678900987654321012345678900987654321012345678900987654321012345");
         NumberInWords numberInWords = new NumberInWords(x, Locale.forLanguageTag("ar"));
         Assert.assertEquals("إثنا عشر أوكتودشيليونا وثلاثمائة وخمسة وأربعون سبتندشيليونا وستمائة وثمانية وسبعون " +
                         "سكسدشيليونا وتسعمائة كويندشيليون وتسعمائة وسبعة وثمانون كواتوردشيليونا وستمائة وأربعة وخمسون" +
@@ -77,9 +82,9 @@ public class TestLargeNumbers {
     
     @Test
     public void testLargeNumbersWithDecimals() {
-        String x = "1000000000000000.001";
+        String        x             = "1000000000000000.001";
         NumberInWords numberInWords = new NumberInWords(x);
-        String toLetters = numberInWords.toLetters();
+        String        toLetters     = numberInWords.toLetters();
         Assert.assertEquals("one quadrillion and zero zero one", toLetters);
     }
     

@@ -100,13 +100,27 @@ public class FrenchRulesImpl extends Rules {
     }
     
     @Override
-    public String getHundredName() {
-        return "cent";
+    public String getHundredName(int number) {
+        String cent = "cent";
+        if(number % 100 ==0) {
+            cent =cent +"s";
+        }
+        return cent;
+    }
+    
+    @Override
+    public String getTensSeparator() {
+        return "-";
     }
     
     @Override
     public boolean onesComeAfterTens() {
         return true;
+    }
+    
+    @Override
+    public String getUnitsSeparator() {
+        return " ";
     }
     
     @Override
@@ -126,7 +140,7 @@ public class FrenchRulesImpl extends Rules {
         if (onesDigit == 1) {
             separator = " et ";
         } else {
-            separator = getSeparator();
+            separator = getTensSeparator();
         }
         if (tensDigit == 7 || tensDigit == 9) {
             return multiplesOfTen[tensDigit - 1] + separator + tens[onesDigit];
@@ -142,5 +156,18 @@ public class FrenchRulesImpl extends Rules {
     @Override
     public String getJunction() {
         return " et ";
+    }
+    
+    @Override
+    public boolean isInRangeOfPlurals(int number) {
+        return number > 1;
+    }
+    
+    @Override
+    public String getPluralUnitString(int unit) {
+        if (unit >= units.length || unit/2==0) {
+           return getUnitString(unit);
+        }
+        return getUnitString(unit)+"s";
     }
 }

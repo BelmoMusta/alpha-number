@@ -11,7 +11,7 @@ public class TestFrenchCases {
     public void testParts() {
         Number x = 192345009;
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
-        Assert.assertEquals("cent quatre-vingt douze million, trois cent quarante cinq mille, neuf",
+        Assert.assertEquals("cent quatre-vingt-douze millions trois cent quarante-cinq mille neuf",
                 numberInWords.toString());
     }
     
@@ -19,7 +19,7 @@ public class TestFrenchCases {
     public void test1() {
         double x = 9878;
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
-        Assert.assertEquals("neuf mille, huit cent soixante dix-huit", numberInWords.toString());
+        Assert.assertEquals("neuf mille huit cent soixante-dix-huit", numberInWords.toString());
         
     }
     
@@ -27,7 +27,7 @@ public class TestFrenchCases {
     public void test2() {
         double x = 102878;
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
-        Assert.assertEquals("cent deux mille, huit cent soixante dix-huit", numberInWords.toString());
+        Assert.assertEquals("cent deux mille huit cent soixante-dix-huit", numberInWords.toString());
         
     }
     
@@ -35,7 +35,7 @@ public class TestFrenchCases {
     public void test3() {
         double x = 400_000_005;
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
-        Assert.assertEquals("quatre cent million, cinq", numberInWords.toString());
+        Assert.assertEquals("quatre cents millions cinq", numberInWords.toString());
         
     }
     
@@ -43,7 +43,7 @@ public class TestFrenchCases {
     public void test73() {
         double x = 73;
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
-        Assert.assertEquals("soixante treize", numberInWords.toString());
+        Assert.assertEquals("soixante-treize", numberInWords.toString());
         
     }
     
@@ -72,14 +72,14 @@ public class TestFrenchCases {
     public void test6() {
         double x = 1111;
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
-        Assert.assertEquals("mille, cent onze", numberInWords.toString());
+        Assert.assertEquals("mille cent onze", numberInWords.toString());
     }
     
     @Test
     public void testDecimals() {
         double value = 200.0098;
         NumberInWords numberInWords = new NumberInWords(value, Locale.FRENCH);
-        Assert.assertEquals("deux cent virgule zéro zéro quatre-vingt dix-huit", numberInWords.toString());
+        Assert.assertEquals("deux cents virgule zéro zéro quatre-vingt-dix-huit", numberInWords.toString());
     }
     
     @Test
@@ -102,6 +102,25 @@ public class TestFrenchCases {
         double value = 715;
         NumberInWords numberInWords = new NumberInWords(value, Locale.FRENCH);
         Assert.assertEquals("sept cent quinze", numberInWords.toString());
+    }
+    @Test
+    public void testCentInPlural() {
+        double value = 800;
+        NumberInWords numberInWords = new NumberInWords(value, Locale.FRENCH);
+        Assert.assertEquals("huit cents", numberInWords.toString());
+    }
+    @Test
+    public void testCentInPlural2() {
+        double value = 1500;
+        NumberInWords numberInWords = new NumberInWords(value, Locale.FRENCH);
+        Assert.assertEquals("mille cinq cents", numberInWords.toString());
+    }
+    
+    @Test
+    public void testNumber0() {
+        double value = 400_099_999_900_003L;
+        NumberInWords numberInWords = new NumberInWords(value, Locale.FRENCH);
+        Assert.assertEquals("quatre cents billions quatre-vingt-dix-neuf milliards neuf cent quatre-vingt-dix-neuf millions neuf cents mille trois", numberInWords.toString());
     }
     
 }

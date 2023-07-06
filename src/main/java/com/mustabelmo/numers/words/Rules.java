@@ -10,9 +10,7 @@ public abstract class Rules {
         return "";
     }
     
-    public String getPluralUnitString(int unit) {
-        return getUnitString(unit);
-    }
+    public abstract String getPluralUnitString(int unit);
     
     public abstract String getOne(int unitsDigit);
     
@@ -22,13 +20,16 @@ public abstract class Rules {
     
     public abstract String getDecimalConnector();
     
-    public abstract String getHundredName();
+    public abstract String getHundredName(int number);
     
     public String getSeparator() {
         return " ";
     }
     
     public String getHundredSeparator() {
+        return " ";
+    }
+    public String getTensSeparator() {
         return " ";
     }
     

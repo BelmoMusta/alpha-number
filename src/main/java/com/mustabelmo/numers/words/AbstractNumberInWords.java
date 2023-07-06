@@ -181,7 +181,11 @@ public class AbstractNumberInWords {
                 ones = rules.getOne(onesDigit);
             }
             if (!sb.isEmpty() && !ones.isEmpty()) {
-                sb.append(rules.getSeparator());
+                if(tensDigit>0) {
+                    sb.append(rules.getTensSeparator());
+                } else {
+                    sb.append(rules.getSeparator());
+                }
             }
             sb.append(ones);
         }
@@ -202,11 +206,12 @@ public class AbstractNumberInWords {
         
         private void traitHundreds(Appender sb) {
             if (hundredsDigit > 0) {
+                String hundredName = rules.getHundredName(number);
                 sb.append(rules.getHundreds(hundredsDigit));
                 if ((hundredsDigit != 1 || !rules.isSpecialCaseFor1())
                         && (hundredsDigit != 2 || !rules.isSpecialCaseFor2())) {
                     sb.append(rules.getHundredSeparator())
-                            .append(rules.getHundredName());
+                            .append(rules.getHundredName(number));
                 }
             }
         }

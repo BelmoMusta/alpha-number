@@ -11,7 +11,7 @@ public class TestConversion {
         NumberInWords numberInWords = new NumberInWords(169.79);
         Assert.assertEquals("one hundred sixty nine and seventy nine", numberInWords.toLetters());
         numberInWords = numberInWords.convertTo(Locale.FRENCH);
-        Assert.assertEquals("cent soixante neuf virgule soixante dix-neuf", numberInWords.toLetters());
+        Assert.assertEquals("cent soixante-neuf virgule soixante-dix-neuf", numberInWords.toLetters());
     }
     
     @Test

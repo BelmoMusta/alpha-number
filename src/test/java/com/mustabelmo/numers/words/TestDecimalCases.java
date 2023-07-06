@@ -14,7 +14,7 @@ public class TestDecimalCases {
         Number x = 1.03423;
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
         String toLetters = numberInWords.toLetters();
-        Assert.assertEquals("un virgule zéro trois mille, quatre cent vingt trois", toLetters);
+        Assert.assertEquals("un virgule zéro trois mille quatre cent vingt-trois", toLetters);
     }
     
     @Test
@@ -22,7 +22,7 @@ public class TestDecimalCases {
         Number x = 1.0003423;
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
         String toLetters = numberInWords.toLetters();
-        Assert.assertEquals("un virgule zéro zéro zéro trois mille, quatre cent vingt trois", toLetters);
+        Assert.assertEquals("un virgule zéro zéro zéro trois mille quatre cent vingt-trois", toLetters);
     }
     
     @Test
