@@ -23,6 +23,10 @@ public class AbstractNumberInWords {
 	public AbstractNumberInWords(Number value, Rules rules) {
 		this(value.toString(), rules);
 	}
+	public AbstractNumberInWords(Double value, Rules rules) {
+		this.value = BigDecimal.valueOf(value);
+		this.rules = rules;
+	}
 	
 	public String toLetters() {
 		LinkedList<NumberPart> numberParts = getIntegerNumberParts(value);
@@ -86,20 +90,18 @@ public class AbstractNumberInWords {
 			int modulo = bigIntegerValue.mod(oneThousand).intValue();
 			NumberPart numberPart = new NumberPart(modulo);
 			if (value.compareTo(BigDecimal.ZERO) == 0
-					|| !numberPart.isEmpty()
-					|| isZeroWithDecimalPart(value, unit)) {
+					|| !numberPart.isEmpty()) {
 				numberParts.addFirst(numberPart);
 			}
 			numberPart.setUnit(unit++);
 			
 			bigIntegerValue = bigIntegerValue.divide(oneThousand);
 		} while (bigIntegerValue.compareTo(BigInteger.ZERO) != 0);
+		
+		if (numberParts.isEmpty()){
+			numberParts.addFirst(new NumberPart(0));
+		}
 		return numberParts;
-	}
-	
-	private boolean isZeroWithDecimalPart(BigDecimal value, int unit) {
-		BigDecimal remainder = value.remainder(BigDecimal.ONE);
-		return unit == 0 && remainder.compareTo(BigDecimal.ZERO) > 0;
 	}
 	
 	int getNumberOfDecimalPlaces(BigDecimal bigDecimal) {

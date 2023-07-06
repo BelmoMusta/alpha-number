@@ -3,6 +3,7 @@ package com.mustabelmo.numers.words;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Locale;
 
@@ -42,6 +43,14 @@ public class TestLargeNumbers {
 		NumberInWords numberInWords = new NumberInWords(x, Locale.forLanguageTag("ar"));
 		Assert.assertEquals("إثنا عشر أوكتودشيليونا وثلاثمائة وخمسة وأربعون سبتندشيليونا وستمائة وثمانية وسبعون سكسدشيليونا وتسعمائة كويندشيليون وتسعمائة وسبعة وثمانون كواتوردشيليونا وستمائة وأربعة وخمسون تريدشيليونا وثلاثمائة وواحد وعشرون دودشيليون وإثنا عشر أوندشيلليونا وثلاثمائة وخمسة وأربعون ديسيلليونا وستمائة وثمانية وسبعون نونيلليونا وتسعمائة أوكتيليون وتسعمائة وسبعة وثمانون سبتيلليونا وستمائة وأربعة وخمسون سكستليونا وثلاثمائة وواحد وعشرون كوينتليون وإثنا عشر كوادريليونا وثلاثمائة وخمسة وأربعون تريليارا وستمائة وثمانية وسبعون تريليونا وتسعمائة بليار وتسعمائة وسبعة وثمانون بليونا وستمائة وأربعة وخمسون مليارا وثلاثمائة وواحد وعشرون مليون وإثنا عشر ألفا وثلاثمائة وخمسة وأربعون",
 				numberInWords.toString());
+	}
+	
+	@Test
+	public void testLargeNumbersWithDecimals() {
+		String x = "1000000000000000.001";
+		NumberInWords numberInWords = new NumberInWords(x);
+		String toLetters = numberInWords.toLetters();
+		Assert.assertEquals("one quadrillion and zero zero one", toLetters);
 	}
 	
 }

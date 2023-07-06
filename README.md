@@ -45,8 +45,28 @@ Test are written in order to maintain the coverage of all the rules that impleme
 Coverage is ensured to be `100%` on branches, lines, and methods.
 
 ## Limitations
-Some limitations are found, due to the big numbers, if million multiple in a such rank does not exist, it will be replaced by `10^{rank}`.
+- Some limitations are found, due to the big numbers, if a million multiple in a such rank does not exist, it will be replaced by `10^{rank}`.
+- Decimal numbers beyond 10^15 are recommended to be dealt with as `String` not with `double`, because the decimal part is lost when converting it to `BigDecimal`
+```java
+String x = "1000000000000000.001";
+NumberInWords numberInWords = new NumberInWords(x);
+String toLetters = numberInWords.toLetters();
+```
+This will yield
+```shell
+one quadrillion and zero zero one
+```
+Whereas 
 
+```java
+double x = 1000000000000000.001;
+NumberInWords numberInWords = new NumberInWords(x);
+String toLetters = numberInWords.toLetters();
+```
+Will yield 
+```shell
+one quadrillion
+```
 ## References 
 [FR : Noms_des_grands_nombres](https://fr.wikipedia.org/wiki/Noms_des_grands_nombres) 
 
