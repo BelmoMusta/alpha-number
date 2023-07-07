@@ -14,6 +14,9 @@ public class LocalesRulesRegistry {
         register(Locale.forLanguageTag("ar"), new ArabicRulesImpl());
     }
     
+    public static Rules getDefaultRules() {
+        return get(Locale.ENGLISH);
+    }
     public static Rules get(Locale key) {
         Locale effectiveKey = key;
         if (key != null && !MAP.containsKey(key)) {

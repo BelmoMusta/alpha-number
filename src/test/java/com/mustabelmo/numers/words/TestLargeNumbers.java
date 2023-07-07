@@ -10,7 +10,7 @@ public class TestLargeNumbers {
     
     @Test
     public void testParts() {
-        Number        x             = new BigInteger("93539573680439696830496390192345009");
+        Number x = new BigInteger("93539573680439696830496390192345009");
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
         Assert.assertEquals("quatre-vingt-treize quintilliards cinq cent trente-neuf " +
                         "quintillions cinq cent soixante-treize quadrilliards six cent " +
@@ -24,7 +24,7 @@ public class TestLargeNumbers {
     
     @Test
     public void testParts2() {
-        Number        x             = new BigInteger(
+        Number x = new BigInteger(
                 "12345678900987654321012345678900987654321012345678900987654321012345");
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
         Assert.assertEquals("douze 10^66 trois cent quarante-cinq décilliards six cent soixante-dix-huit décillions " +
@@ -41,7 +41,7 @@ public class TestLargeNumbers {
     
     @Test
     public void testParts2Eng() {
-        Number        x             = new BigInteger(
+        Number x = new BigInteger(
                 "12345678900987654321012345678900987654321012345678900987654321012345");
         NumberInWords numberInWords = new NumberInWords(x, Locale.ENGLISH);
         Assert.assertEquals("twelve unvigintillion, three hundred forty five vigintillion, six hundred seventy eight " +
@@ -58,7 +58,7 @@ public class TestLargeNumbers {
     
     @Test
     public void testParts3Eng() {
-        Number        x             = new BigInteger("10").pow(128);
+        Number x = new BigInteger("10").pow(128);
         NumberInWords numberInWords = new NumberInWords(x, Locale.ENGLISH);
         Assert.assertEquals("one hundred unquadragintillion",
                 numberInWords.toString());
@@ -66,7 +66,7 @@ public class TestLargeNumbers {
     
     @Test
     public void testPartsArabic() {
-        Number        x             = new BigInteger(
+        Number x = new BigInteger(
                 "12345678900987654321012345678900987654321012345678900987654321012345");
         NumberInWords numberInWords = new NumberInWords(x, Locale.forLanguageTag("ar"));
         Assert.assertEquals("إثنا عشر أوكتودشيليونا وثلاثمائة وخمسة وأربعون سبتندشيليونا وستمائة وثمانية وسبعون " +
@@ -82,9 +82,9 @@ public class TestLargeNumbers {
     
     @Test
     public void testLargeNumbersWithDecimals() {
-        String        x             = "1000000000000000.001";
+        String x = "1000000000000000.001";
         NumberInWords numberInWords = new NumberInWords(x);
-        String        toLetters     = numberInWords.toLetters();
+        String toLetters = numberInWords.toString();
         Assert.assertEquals("one quadrillion and zero zero one", toLetters);
     }
     
