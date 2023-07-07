@@ -61,7 +61,7 @@ public class NumberToWordsConverter implements INumberToWordsConverter {
         }
     }
     
-    protected LinkedList<String> getIntegerNumberParts(BigDecimal value, Rules rules) {
+    private LinkedList<String> getIntegerNumberParts(BigDecimal value, Rules rules) {
         LinkedList<String> numberParts = new LinkedList<>();
         BigInteger bigIntegerValue = value.toBigInteger();
         BigInteger oneThousand = BigInteger.valueOf(1000L);
