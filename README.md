@@ -6,7 +6,7 @@ Convert numbers from digital format to words.
 
 This code provides a tool to convert a number from its digital value to the words format.
 This release supports 3 built-in languages : `English`, `French` and `Arabic`.
-
+# Using as instance
 ## Basic Example :
 
 ```JAVA
@@ -67,6 +67,20 @@ Will yield
 ```shell
 one quadrillion
 ```
+## Usage a stateless Service
+The conversion can be used without needing to create an instance for each number, 
+which is useful for the dependency injection oriented architectures : 
+
+```java
+Rules frenchRules = LocalesRulesRegistry.get(Locale.FRANCE);
+INumberToWordsConverter numbersToWordsConverter = new NumberToWordsConverter();
+String numberInWords = numbersToWordsConverter.convert("1500", frenchRules);
+System.out.println(numberInWords);
+```
+```shell
+mille cinq cents
+```
+
 ## References 
 [FR : Noms_des_grands_nombres](https://fr.wikipedia.org/wiki/Noms_des_grands_nombres) 
 
