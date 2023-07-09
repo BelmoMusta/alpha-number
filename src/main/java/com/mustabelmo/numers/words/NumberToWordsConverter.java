@@ -19,16 +19,16 @@ public class NumberToWordsConverter implements INumberToWordsConverter {
     public String convert(BigDecimal number, Rules rules, String symbol, boolean decimalPartToFraction) {
         
         LinkedList<String> numberParts = getIntegerNumberParts(number, rules);
-        Appender sb = new Appender();
-        String collect = numberParts.stream()
+        Appender appender = new Appender();
+        String numberPartCollection = numberParts.stream()
                 .collect(Collectors.joining(rules.getUnitsSeparator()));
-        sb.append(collect);
-        addDecimalPart(number, rules, decimalPartToFraction, sb);
+        appender.append(numberPartCollection);
+        addDecimalPart(number, rules, decimalPartToFraction, appender);
         if (symbol != null && !symbol.isEmpty()) {
-            sb.append(' ')
+            appender.append(' ')
                     .append(symbol);
         }
-        return sb.toString();
+        return appender.toString();
     }
     
     private void addDecimalPart(BigDecimal number, Rules rules, boolean decimalPartToFraction, Appender sb) {
@@ -39,26 +39,34 @@ public class NumberToWordsConverter implements INumberToWordsConverter {
             BigDecimal decimalPart = fractionalPart.multiply(pow);
             LinkedList<String> decimalParts = getIntegerNumberParts(decimalPart, rules);
             if (decimalPartToFraction) {
-                sb.append(rules.getJunction());
-                sb.append(decimalPart.toBigInteger())
-                        .append("/")
-                        .append(pow);
+                addDecimalPartAsFraction(rules, sb, pow, decimalPart);
             } else {
-                sb.append(rules.getDecimalConnector());
-                String decimalPartAsLetters = decimalParts.stream()
-                        .map(Object::toString)
-                        .collect(Collectors.joining(rules.getUnitsSeparator()));
-                int numberOfZerosAfterDecimalSymbol = getNumberOfZerosAfterDecimalSymbol(fractionalPart);
-                String zeros = IntStream.range(0, numberOfZerosAfterDecimalSymbol)
-                        .mapToObj(i -> rules.getZero())
-                        .collect(Collectors.joining(" "));
-                if (!zeros.isEmpty()) {
-                    sb.append(zeros);
-                    sb.append(' ');
-                }
-                sb.append(decimalPartAsLetters);
+                addDecimalPartAsWords(rules, sb, fractionalPart, decimalParts);
             }
         }
+    }
+    
+    private void addDecimalPartAsFraction(Rules rules, Appender sb, BigDecimal pow, BigDecimal decimalPart) {
+        sb.append(rules.getJunction());
+        sb.append(decimalPart.toBigInteger())
+                .append("/")
+                .append(pow);
+    }
+    
+    private void addDecimalPartAsWords(Rules rules, Appender sb, BigDecimal fractionalPart, LinkedList<String> decimalParts) {
+        sb.append(rules.getDecimalConnector());
+        String decimalPartAsLetters = decimalParts.stream()
+                .map(Object::toString)
+                .collect(Collectors.joining(rules.getUnitsSeparator()));
+        int numberOfZerosAfterDecimalSymbol = getNumberOfZerosAfterDecimalSymbol(fractionalPart);
+        String zeros = IntStream.range(0, numberOfZerosAfterDecimalSymbol)
+                .mapToObj(i -> rules.getZero())
+                .collect(Collectors.joining(" "));
+        if (!zeros.isEmpty()) {
+            sb.append(zeros);
+            sb.append(' ');
+        }
+        sb.append(decimalPartAsLetters);
     }
     
     private LinkedList<String> getIntegerNumberParts(BigDecimal value, Rules rules) {
@@ -72,25 +80,25 @@ public class NumberToWordsConverter implements INumberToWordsConverter {
             int tensDigit = (modulo % 100) / 10;
             if (value.compareTo(BigDecimal.ZERO) == 0
                     || modulo != 0) {
-                Appender sb = new Appender();
+                Appender appender = new Appender();
                 String hundreds = traitHundreds(modulo, rules);
-                sb.append(hundreds);
+                appender.append(hundreds);
                 if (rules.isInRangeOfSpecialCases(onesDigit, tensDigit)) {
-                    if (!sb.isEmpty()) {
-                        sb.append(rules.getSeparator());
+                    if (!appender.isEmpty()) {
+                        appender.append(rules.getSeparator());
                     }
-                    sb.append(rules.getSpecialCases(onesDigit, tensDigit));
+                    appender.append(rules.getSpecialCases(onesDigit, tensDigit));
                 } else {
                     if (rules.onesComeAfterTens()) {
-                        traitTens(modulo, rules, sb);
-                        traitOnes(modulo, unit, rules, sb);
+                        traitTens(modulo, rules, appender);
+                        traitOnes(modulo, unit, rules, appender);
                     } else {
-                        traitOnes(modulo, unit, rules, sb);
-                        traitTens(modulo, rules, sb);
+                        traitOnes(modulo, unit, rules, appender);
+                        traitTens(modulo, rules, appender);
                     }
                 }
-                traitUnits(modulo, unit, rules, sb);
-                numberParts.addFirst(sb.toString());
+                traitUnits(modulo, unit, rules, appender);
+                numberParts.addFirst(appender.toString());
             }
             bigIntegerValue = bigIntegerValue.divide(oneThousand);
             unit++;
