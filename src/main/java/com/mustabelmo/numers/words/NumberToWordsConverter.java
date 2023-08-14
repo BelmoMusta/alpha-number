@@ -81,7 +81,7 @@ public class NumberToWordsConverter implements INumberToWordsConverter {
             if (value.compareTo(BigDecimal.ZERO) == 0
                     || modulo != 0) {
                 Appender appender = new Appender();
-                String hundreds = traitHundreds(modulo, rules);
+                String hundreds = traitHundreds(modulo,unit, rules);
                 appender.append(hundreds);
                 if (rules.isInRangeOfSpecialCases(onesDigit, tensDigit)) {
                     if (!appender.isEmpty()) {
@@ -111,11 +111,11 @@ public class NumberToWordsConverter implements INumberToWordsConverter {
         return numberParts;
     }
     
-    private String traitHundreds(int number, Rules rules) {
+    private String traitHundreds(int number, int unit, Rules rules) {
         Appender appender = new Appender();
         int hundredsDigit = number / 100;
         if (hundredsDigit > 0) {
-            appender.append(rules.getHundreds(hundredsDigit));
+            appender.append(rules.getHundreds(unit, hundredsDigit));
             if ((hundredsDigit != 1 || !rules.isSpecialCaseFor1())
                     && (hundredsDigit != 2 || !rules.isSpecialCaseFor2())) {
                 appender.append(rules.getHundredSeparator())
@@ -168,18 +168,16 @@ public class NumberToWordsConverter implements INumberToWordsConverter {
     private void traitUnits(int number, int unit, Rules rules, Appender sb) {
         if (number > 0) {
             final String unitString;
-            if (rules.isSpecialCaseFor1() && number % 10 == 1) {
-                unitString = rules.getUnitString(unit);
-            } else if (rules.isSpecialCaseFor2() && number == 2) {
+            if (rules.isSpecialCaseFor2() && number == 2) {
                 unitString = rules.getDoubledUnitString(unit);
+            } else if (rules.shouldUnitBeAccusative(number)) {
+                unitString = rules.getAccusativeUnitString(unit);
             } else if (rules.isInRangeOfPlurals(number)) {
                 unitString = rules.getPluralUnitString(unit);
+            } else if (rules.isSpecialCaseFor1() && number % 10 == 1) {
+                unitString = rules.getUnitString(unit);
             } else {
-                if (rules.shouldUnitBeAccusative(number)) {
-                    unitString = rules.getAccusativeUnitString(unit);
-                } else {
-                    unitString = rules.getUnitString(unit);
-                }
+                unitString = rules.getUnitString(unit);
             }
             if (!unitString.isEmpty() && !sb.isEmpty()) {
                 sb.append(" ");

@@ -143,7 +143,7 @@ public class EnglishRulesImpl extends Rules {
     };
     
     @Override
-    public String getHundreds(int hundredsDigit) {
+    public String getHundreds(int unit, int hundredsDigit) {
         return ones[hundredsDigit];
     }
     

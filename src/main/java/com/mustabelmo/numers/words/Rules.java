@@ -2,7 +2,7 @@ package com.mustabelmo.numers.words;
 
 public abstract class Rules {
     
-    public abstract String getHundreds(int hundredsDigit);
+    public abstract String getHundreds(int unit, int hundredsDigit);
     
     public abstract String getUnitString(int unit);
     

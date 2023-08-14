@@ -64,7 +64,7 @@ public class FrenchRulesImpl extends Rules {
     };
     
     @Override
-    public String getHundreds(int hundredsDigit) {
+    public String getHundreds(int unit, int hundredsDigit) {
         if (hundredsDigit == 1) {
             return "cent";
         }

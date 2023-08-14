@@ -27,15 +27,15 @@ public class TestLargeNumbers {
         Number x = new BigInteger(
                 "12345678900987654321012345678900987654321012345678900987654321012345");
         NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
-        Assert.assertEquals("douze 10^66 trois cent quarante-cinq décilliards six cent soixante-dix-huit décillions " +
-                        "neuf cents nonilliards neuf cent quatre-vingt-sept nonillions six cent cinquante-quatre " +
-                        "octilliards trois cent vingt et un octillion douze septilliards trois cent quarante-cinq " +
-                        "septillions six cent soixante-dix-huit sextilliards neuf cents sextillions neuf cent " +
-                        "quatre-vingt-sept quintilliards six cent cinquante-quatre quintillions trois cent vingt et " +
-                        "un quadrilliard douze quadrillions trois cent quarante-cinq trilliards six cent " +
-                        "soixante-dix-huit trillions neuf cents billiards neuf cent quatre-vingt-sept billions six " +
-                        "cent cinquante-quatre milliards trois cent vingt et un million douze mille trois cent " +
-                        "quarante-cinq",
+        Assert.assertEquals("douze 10^66 trois cent quarante-cinq décilliards six cent soixante-dix-huit décillions neuf cents nonilliards neuf cent quatre-vingt-sept nonillions six cent cinquante-quatre octilliards trois cent vingt et un octillions douze septilliards trois cent quarante-cinq septillions six cent soixante-dix-huit sextilliards neuf cents sextillions neuf cent quatre-vingt-sept quintilliards six cent cinquante-quatre quintillions trois cent vingt et un quadrilliards douze quadrillions trois cent quarante-cinq trilliards six cent soixante-dix-huit trillions neuf cents billiards neuf cent quatre-vingt-sept billions six cent cinquante-quatre milliards trois cent vingt et un millions douze mille trois cent quarante-cinq",
+                numberInWords.toString());
+    }
+    @Test
+    public void test1012345() {
+        Number x = new BigInteger(
+                "31012345");
+        NumberInWords numberInWords = new NumberInWords(x, Locale.FRENCH);
+        Assert.assertEquals("trente et un millions douze mille trois cent quarante-cinq",
                 numberInWords.toString());
     }
     
@@ -69,14 +69,7 @@ public class TestLargeNumbers {
         Number x = new BigInteger(
                 "12345678900987654321012345678900987654321012345678900987654321012345");
         NumberInWords numberInWords = new NumberInWords(x, Locale.forLanguageTag("ar"));
-        Assert.assertEquals("إثنا عشر أوكتودشيليونا وثلاثمائة وخمسة وأربعون سبتندشيليونا وستمائة وثمانية وسبعون " +
-                        "سكسدشيليونا وتسعمائة كويندشيليون وتسعمائة وسبعة وثمانون كواتوردشيليونا وستمائة وأربعة وخمسون" +
-                        " تريدشيليونا وثلاثمائة وواحد وعشرون دودشيليون وإثنا عشر أوندشيلليونا وثلاثمائة وخمسة وأربعون" +
-                        " ديسيلليونا وستمائة وثمانية وسبعون نونيلليونا وتسعمائة أوكتيليون وتسعمائة وسبعة وثمانون " +
-                        "سبتيلليونا وستمائة وأربعة وخمسون سكستليونا وثلاثمائة وواحد وعشرون كوينتليون وإثنا عشر " +
-                        "كوادريليونا وثلاثمائة وخمسة وأربعون تريليارا وستمائة وثمانية وسبعون تريليونا وتسعمائة بليار " +
-                        "وتسعمائة وسبعة وثمانون بليونا وستمائة وأربعة وخمسون مليارا وثلاثمائة وواحد وعشرون مليون " +
-                        "وإثنا عشر ألفا وثلاثمائة وخمسة وأربعون",
+        Assert.assertEquals("إثنا عشر أوكتودشيليونا وثلاثمائة وخمسة وأربعون سبتندشيليونا وستمائة وثمانية وسبعون سكسدشيليونا وتسعمائة كويندشيليون وتسعمائة وسبعة وثمانون كواتوردشيليونا وستمائة وأربعة وخمسون تريدشيليونا وثلاثمائة وواحد وعشرون دودشيليونا وإثنا عشر أوندشيلليونا وثلاثمائة وخمسة وأربعون ديسيلليونا وستمائة وثمانية وسبعون نونيلليونا وتسعمائة أوكتيليون وتسعمائة وسبعة وثمانون سبتيلليونا وستمائة وأربعة وخمسون سكستليونا وثلاثمائة وواحد وعشرون كوينتليونا وإثنا عشر كوادريليونا وثلاثمائة وخمسة وأربعون تريليارا وستمائة وثمانية وسبعون تريليونا وتسعمائة بليار وتسعمائة وسبعة وثمانون بليونا وستمائة وأربعة وخمسون مليارا وثلاثمائة وواحد وعشرون مليونا وإثنا عشر ألفا وثلاثمائة وخمسة وأربعون",
                 numberInWords.toString());
     }
     

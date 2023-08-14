@@ -24,4 +24,13 @@ public class TestNumbersToWordsConverter {
          String numberInWordsWithSymbol = numbersToWordsConverter.convert("1500", frenchRules, "$", false);
         Assert.assertEquals("mille cinq cents $", numberInWordsWithSymbol.toString());
     }
+    @Test
+    public void run() {
+        Rules arabicRules = LocalesRulesRegistry.get(Locale.forLanguageTag("ar"));
+        INumberToWordsConverter numbersToWordsConverter = new NumberToWordsConverter();
+        for (long i = 0; i < 9_000_000_0L; i+=10_000_0L) {
+            String numberInWordsWithSymbol = numbersToWordsConverter.convert(i+"", arabicRules);
+            System.out.println(i+" "+ numberInWordsWithSymbol);
+        }
+    }
 }

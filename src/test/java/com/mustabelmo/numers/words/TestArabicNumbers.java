@@ -81,6 +81,15 @@ public class TestArabicNumbers {
     public void test2000() {
         NumberInWords numberInWords = new NumberInWords(2000, arabic);
         Assert.assertEquals("ألفان", numberInWords.toString());
+    }@Test
+    public void test61000000() {
+        NumberInWords numberInWords = new NumberInWords(61000000, arabic);
+        Assert.assertEquals("واحد وستون مليونا", numberInWords.toString());
+    }
+    @Test
+    public void test200000() {
+        NumberInWords numberInWords = new NumberInWords(200000, arabic);
+        Assert.assertEquals("مائتا ألف", numberInWords.toString());
     }
     
     @Test

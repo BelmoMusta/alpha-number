@@ -86,7 +86,10 @@ public class ArabicRulesImpl extends Rules {
     };
     
     @Override
-    public String getHundreds(int hundredsDigit) {
+    public String getHundreds(int unit, int hundredsDigit) {
+        if (unit == 1 && hundredsDigit == 2){
+            return "مائتا";
+        }
         return hundreds[hundredsDigit];
     }
     
